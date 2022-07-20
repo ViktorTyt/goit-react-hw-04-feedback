@@ -3,6 +3,7 @@ import { ButtonBox, Button } from './FeedbackOptions.styled';
 
 export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   const optionsKeys = Object.keys(options);
+  console.log(optionsKeys);
 
   return (
     <ButtonBox>

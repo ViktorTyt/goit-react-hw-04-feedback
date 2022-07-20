@@ -10,8 +10,9 @@ import {
 import { Notification } from 'components/Notification/Notification';
 
 export const Statistics = ({ options, total, positivePercentage }) => {
+  console.log(options);
   const getDataArray = Object.entries(options);
-
+  console.log(getDataArray);
   return total() ? (
     <StatisticsBox>
       <StatisticsList>
