@@ -5,35 +5,50 @@ import { Container } from './App.styled';
 import { useState } from 'react';
 
 export const App = () => {
-  const [state, setState] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  });
+  const [good, setName] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
   const onChange = key => {
-    setState(prevState => ({
-      ...prevState,
-      [key]: prevState[key] + 1,
-    }));
+    switch (key) {
+      case 'good':
+        return setName(prevGood => prevGood + 1);
+      case 'neutral':
+        return setNeutral(prevNeutral => prevNeutral + 1);
+      case 'bad':
+        return setBad(prevBad => prevBad + 1);
+
+      default:
+        break;
+    }
   };
+
+  const getStateObject = () => {
+    return { good, neutral, bad };
+  };
+
+  const state = getStateObject();
+
+  const stateKeys = Object.keys(state);
+
+  const stateDataArray = Object.entries(state);
 
   const countTotalFeedback = () => {
     return Object.values(state).reduce((acc, value) => acc + value, 0);
   };
 
   const countPositiveFeedbackPercentage = () => {
-    return ((state.good / countTotalFeedback()) * 100).toFixed(0);
+    return ((good / countTotalFeedback()) * 100).toFixed(0);
   };
 
   return (
     <Container>
       <Section title={'Please leave feedback'}>
-        <FeedbackOptions options={state} onLeaveFeedback={onChange} />
+        <FeedbackOptions stateKeys={stateKeys} onLeaveFeedback={onChange} />
       </Section>
       <Section title={'Statistics'}>
         <Statistics
-          options={state}
+          stateDataArray={stateDataArray}
           total={countTotalFeedback}
           positivePercentage={countPositiveFeedbackPercentage}
         />

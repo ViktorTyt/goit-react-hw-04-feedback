@@ -9,13 +9,11 @@ import {
 } from './Statistics.styled';
 import { Notification } from 'components/Notification/Notification';
 
-export const Statistics = ({ options, total, positivePercentage }) => {
-  const getDataArray = Object.entries(options);
-
+export const Statistics = ({ stateDataArray, total, positivePercentage }) => {
   return total() ? (
     <StatisticsBox>
       <StatisticsList>
-        {getDataArray.map((item, index) => (
+        {stateDataArray.map((item, index) => (
           <StatisticsItem key={index + 1}>
             {item[0]}:<Value>{item[1]}</Value>
           </StatisticsItem>
@@ -34,11 +32,7 @@ export const Statistics = ({ options, total, positivePercentage }) => {
 };
 
 Statistics.propTypes = {
-  options: PropTypes.exact({
-    good: PropTypes.number.isRequired,
-    neutral: PropTypes.number.isRequired,
-    bad: PropTypes.number.isRequired,
-  }),
+  stateDataArray: PropTypes.arrayOf(PropTypes.array).isRequired,
   total: PropTypes.func.isRequired,
   positivePercentage: PropTypes.func.isRequired,
 };
